@@ -1,14 +1,14 @@
 #include <stdio.h>
 
 void insertion_sort(int arr[], int size){
-    for(int i = 1;i<size;i++){
+    for(int i = 1; i < size;i++){
         int key = arr[i];
         int prev = i - 1;
 
-        for( ;prev>=0 && arr[prev] > key; prev--){
+        for(;prev >= 0 && arr[prev] > key;prev--){
             arr[prev + 1] = arr[prev];
         }
-        arr[prev + 1] = key;
+        arr[prev + 1] = key; 
     }
 }
 

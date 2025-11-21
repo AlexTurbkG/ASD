@@ -8,48 +8,40 @@ void print_arr(int arr[], int size){
 }
 
 
-void swap(int* a, int* b){
-    int temp = *a;
+void swap(int *a, int *b){
+    int c = *a;
     *a = *b;
-    *b = temp;
+    *b = c;
 }
+
 
 int partition(int arr[], int low, int high){
-    int pivot = arr[low];
-    int i = low;
-    int j = high;
+    int pivot = arr[high];
 
-    while(i < j){
+    int id1 = low - 1;
 
-
-        //finds the first element bigger than the pivot from the start
-        while(arr[i] <= pivot && i <= high - 1){
-            i++;
+    for(int id2 = low; id2<=high;id2++){
+        if(arr[id2] < pivot){
+            id1++;
+            swap(&arr[id1], &arr[id2]);
         }
-
-        //finds the first element smaller than the pivot from the end
-        while(arr[j] >= pivot && j >= low + 1){
-            j--;
-        }
-
-        if(i < j){
-            swap(&arr[i],&arr[j]);
-        }
-
     }
-    swap(&arr[low],&arr[j]);
-    return j;
+    swap(&arr[id1 + 1], &arr[high]);
+    return id1 + 1;
 }
 
-void quick_sort(int arr[], int low, int high){
+
+int quick_sort(int arr[], int low, int high){
     if(low < high){
-        int partId = partition(arr, low, high);
+        int pivId = partition(arr,low,high);
 
+        quick_sort(arr, low, pivId - 1);
+        quick_sort(arr, pivId + 1, high);
 
-        quick_sort(arr, low, partId - 1);
-        quick_sort(arr, partId + 1, high);
     }
 }
+
+
 
 
 int main(){

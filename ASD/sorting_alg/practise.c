@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 
 void print_arr(int arr[], int size){
@@ -15,13 +14,14 @@ void merge(int arr[], int left, int mid, int right){
     int size1 = mid - left + 1;
     int size2 = right - mid;
 
+
     int left_arr[size1], right_arr[size2];
 
-    for(id1 = 0; id1<size1;id1++){
+    for(id1 = 0;id1<size1;id1++){
         left_arr[id1] = arr[left + id1];
     }
-    for(id2 = 0; id2<size2;id2++){
-        right_arr[id2] = arr[mid + 1 + id2];
+    for(id2 = 0;id2<size2;id2++){
+        right_arr[id2] = arr[mid + id2 + 1];
     }
 
     id1 = 0;
@@ -30,7 +30,7 @@ void merge(int arr[], int left, int mid, int right){
 
     while(id1 < size1 && id2 < size2){
         if(left_arr[id1] <= right_arr[id2]){
-            arr[id3] = left_arr[id1];
+            arr[id3] =  left_arr[id1];
             id1++;
         }
         else {
@@ -39,6 +39,7 @@ void merge(int arr[], int left, int mid, int right){
         }
         id3++;
     }
+
 
     while(id1 < size1){
         arr[id3] = left_arr[id1];
@@ -51,6 +52,7 @@ void merge(int arr[], int left, int mid, int right){
         id2++;
         id3++;
     }
+
 }
 
 
@@ -59,12 +61,14 @@ void merge_sort(int arr[], int left, int right){
     if(left < right){
         int mid = left + (right - left) / 2;
 
-        merge_sort(arr,left,mid);
-        merge_sort(arr,mid + 1, right);
+        merge_sort(arr, left, mid);
+        merge_sort(arr, mid + 1, right);
 
-        merge(arr, left, mid, right);
+        merge(arr,left,mid,right);
     }
 }
+
+
 
 
 int main(){
