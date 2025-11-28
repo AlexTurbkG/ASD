@@ -139,6 +139,52 @@ static void slist_print(SkipList *list){
 
 
 
+void reverse_slist(SkipList *list){
+    snode *current = list->header->forward[1];
+    snode *next = NULL;
+    snode *prev = list->header;
+    
+    // Reverse the base level (level 1)
+    while(current != NULL){
+        next = current->forward[1];
+        current->forward[1] = prev;
+        prev = current;
+        current = next;
+    }
+    
+    // Update header to point to last node
+    list->header->forward[1] = prev;
+    
+    // Rebuild higher levels
+    int i;
+    for(i = 2; i <= list->level; i++){
+        list->header->forward[i] = NULL;
+    }
+    
+    // Re-insert nodes at higher levels randomly
+    current = list->header->forward[1];
+    while(current != NULL && current != list->header){
+        int level = rand_level();
+        if(level > list->level){
+            for(i = list->level + 1; i <= level; i++){
+                list->header->forward[i] = NULL;
+            }
+            list->level = level;
+        }
+        
+        // Update forward pointers for higher levels
+        for(i = 2; i <= level; i++){
+            current->forward[i] = list->header->forward[i];
+            list->header->forward[i] = current;
+        }
+        
+        current = current->forward[1];
+    }
+}
+
+
+
+
 
 
 
