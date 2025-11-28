@@ -2,8 +2,8 @@
 
 void insertion_sort(int arr[], int size){
     for(int i = 1; i < size;i++){
-        int key = arr[i];
-        int prev = i - 1;
+        int key = arr[i]; //value
+        int prev = i - 1; //index
 
         for(;prev >= 0 && arr[prev] > key;prev--){
             arr[prev + 1] = arr[prev];
